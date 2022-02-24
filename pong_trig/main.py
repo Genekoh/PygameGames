@@ -74,26 +74,26 @@ def handle_collision(ball, left_paddle, right_paddle):
         ball_center = ball_y + ball.size / 2
         left_paddle_center = left_paddle.pos[1] + left_paddle.height / 2
         displacement = left_paddle_center - ball_center
-        ball.collide_paddle(displacement)
-        print("colliding with left paddles")
+        ball.collide_paddle(displacement / (left_paddle.height / 2))
+        print("colliding with left paddle")
     elif (
-        ball_x >= right_paddle.pos[0]
+        ball_x + ball.size >= right_paddle.pos[0]
         and ball_y > right_paddle.pos[1]
         and ball_y < right_paddle.pos[1] + right_paddle.height
     ):
         ball_center = ball_y + ball.size / 2
         right_paddle_center = right_paddle.pos[1] + right_paddle.height / 2
         displacement = right_paddle_center - ball_center
-        ball.collide_paddle(displacement)
+        ball.collide_paddle(displacement / (right_paddle.height / 2))
         print("colliding with right paddle")
     else:
         check_win(ball)
 
 
 def check_win(ball):
-    if ball.pos[0] <= 0:
+    if ball.pos[0] <= -50:
         ball.reset()
-    if ball.pos[0] + ball.size >= SCREEN_WIDTH:
+    if ball.pos[0] + ball.size >= SCREEN_WIDTH + 50:
         ball.reset()
 
 

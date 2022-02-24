@@ -114,14 +114,18 @@ class Ball(pygame.sprite.Sprite):
         self.vel = np.array([self.vel[0], -self.vel[1]])
 
     def collide_paddle(self, displacement):
-        # self.vel = np.array([-self.vel[0], self.vel[1]])
-        # displacement = 0 --> vy = velocity * 1 or velocity * sin(pi/2)
-        # displacement = 1 --> vy = velocity * np.sin(pi/4)
+        # angel ranges from pi/4 to -pi/4
+        # displacement is 1 : theta = pi/4
+        # displacement is 0 : theta = 0
+        # displacement is -1 : theta = -pi/4
+
+        print("displacement", displacement)
         cur_speed = np.linalg.norm(self.vel)
-        max = np.pi / 2
-        min = np.pi / 4
-        theta = (max - min) * (1 - displacement) + min
-        vx = cur_speed * np.cos(theta)
+        max = np.pi / 4
+        min = 0
+        theta = (max - min) * (-displacement) + min
+
+        vx = cur_speed * np.cos(theta) * (-self.vel[0] / np.abs(self.vel[0]))
         vy = cur_speed * np.sin(theta)
         self.vel = np.array([vx, vy])
 
