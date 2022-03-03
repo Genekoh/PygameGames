@@ -111,7 +111,12 @@ class Ball(pygame.sprite.Sprite):
         self.vel = new_vel
 
     def collide_x(self):
-        self.vel = np.array([self.vel[0], -self.vel[1]])
+        x_vel, y_vel = self.vel[0], self.vel[1]
+        if y_vel > 0:
+            self.vel = np.array([x_vel, -np.abs(y_vel)])
+        else:
+            self.vel = np.array([x_vel, np.abs(y_vel)])
+            
 
     def collide_paddle(self, displacement):
         # angel ranges from pi/4 to -pi/4

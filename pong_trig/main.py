@@ -16,7 +16,7 @@ def main():
     paddle_height = 60
 
     left_paddle = Paddle(
-        (10, SCREEN_HEIGHT / 2 - paddle_height / 2),
+        (30, SCREEN_HEIGHT / 2 - paddle_height / 2),
         paddle_width,
         paddle_height,
         pygame.K_w,
@@ -26,7 +26,7 @@ def main():
     )
 
     right_paddle = Paddle(
-        (SCREEN_WIDTH - paddle_width - 10, SCREEN_HEIGHT / 2 - paddle_height / 2),
+        (SCREEN_WIDTH - paddle_width - 30, SCREEN_HEIGHT / 2 - paddle_height / 2),
         paddle_width,
         paddle_height,
         pygame.K_UP,
@@ -64,7 +64,6 @@ def handle_collision(ball, left_paddle, right_paddle):
     ball_y = ball.pos[1]
 
     if ball_y <= 0 or ball_y + ball.size >= SCREEN_HEIGHT:
-        print("colliding with x axis")
         ball.collide_x()
     elif (
         ball_x <= left_paddle.pos[0] + left_paddle.width
@@ -75,7 +74,6 @@ def handle_collision(ball, left_paddle, right_paddle):
         left_paddle_center = left_paddle.pos[1] + left_paddle.height / 2
         displacement = left_paddle_center - ball_center
         ball.collide_paddle(displacement / (left_paddle.height / 2))
-        print("colliding with left paddle")
     elif (
         ball_x + ball.size >= right_paddle.pos[0]
         and ball_y > right_paddle.pos[1]
@@ -85,7 +83,6 @@ def handle_collision(ball, left_paddle, right_paddle):
         right_paddle_center = right_paddle.pos[1] + right_paddle.height / 2
         displacement = right_paddle_center - ball_center
         ball.collide_paddle(displacement / (right_paddle.height / 2))
-        print("colliding with right paddle")
     else:
         check_win(ball)
 
